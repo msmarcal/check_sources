@@ -104,6 +104,13 @@ api.jujucharms.com
 api.snapcraft.io
 livepatch.canonical.com
 dashboard.snapcraft.io
+image-registry.canonical.com
+rocks.canonical.com
+quay.io
+gcr.io
+k8s.gcr.io
+storage.googleapis.com
+auth.docker.io
 )
 
 ###############################################################################
