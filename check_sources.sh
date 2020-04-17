@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-#       _               _                                          
-#   ___| |__   ___  ___| | __    ___  ___  _   _ _ __ ___ ___  ___ 
+#       _               _
+#   ___| |__   ___  ___| | __    ___  ___  _   _ _ __ ___ ___  ___
 #  / __| '_ \ / _ \/ __| |/ /   / __|/ _ \| | | | '__/ __/ _ \/ __|
 # | (__| | | |  __/ (__|   <    \__ \ (_) | |_| | | | (_|  __/\__ \
 #  \___|_| |_|\___|\___|_|\_\___|___/\___/ \__,_|_|  \___\___||___/
-#                          |_____|                                 
-# TODO: Change the header
+#                          |_____|
+#
 # Checks Canonical package repositories and any third party resources required
 # by inrastructure deployment
 #
@@ -122,12 +122,12 @@ auth.docker.io
 # Print the program help information.
 function _print_help() {
   cat <<HEREDOC
-      _               _                                          
-  ___| |__   ___  ___| | __    ___  ___  _   _ _ __ ___ ___  ___ 
+      _               _
+  ___| |__   ___  ___| | __    ___  ___  _   _ _ __ ___ ___  ___
  / __| '_ \\ / _ \\/ __| |/ /   / __|/ _ \\| | | | '__/ __/ _ \\/ __|
 | (__| | | |  __/ (__|   <    \\__ \\ (_) | |_| | | | (_|  __/\\__ \\
  \\___|_| |_|\\___|\\___|_|\\_\\___|___/\\___/ \\__,_|_|  \\___\\___||___/
-                         |_____|                                 
+                         |_____|
 
 Checks access to Canonical package repositories as well any third party
 resources required by (PCB|K8s) infrastructure deployment
@@ -148,7 +148,7 @@ HEREDOC
 # _set_proxy()
 #
 # Description:
-#  Export http{,s} variables 
+#  Export http{,s} variables
 function _set_proxy() {
    export http_proxy="${1}"
    export https_proxy=$http_proxy
@@ -171,23 +171,25 @@ function _err() {
 # Description:
 #  Check http{,s} connection to the _HTTP and _HTTPS server arrays
 function _check_http() {
-    _PROTO=$(echo "$1" | tr "[:lower:]" "[:upper:]")
-    printf "[ Checking %s sources ]--------------------------------------\\n" \
-        "${_PROTO}"
-    _SOURCES="_${_PROTO}[@]" 
-    for _SOURCE in "${!_SOURCES}"; do
-        printf "%s: %s - " "${1}" "${_SOURCE}"
-        _RET=$( \
-            curl -s -m 5 -o /dev/null \
-            -w "%{http_code}" -I --insecure "$1"://"${_SOURCE}" || echo $?)
-       
-        if [[ "${_RET}" =~ ^2.*|^3.*|^4.* ]] 
-        then
-            _ok "${_RET}"
-        else    
-            _err "${_RET}"
-        fi
-    done
+  _PROTO=$(echo "$1" | tr "[:lower:]" "[:upper:]")
+  printf "\\n[ Checking %s sources ]--------------------------------------\\n" \
+     "${_PROTO}"
+  _SOURCES="_${_PROTO}[@]"
+
+  for _SOURCE in "${!_SOURCES}"; do
+     printf "%s: %s - " "${1}" "${_SOURCE}"
+     _RET=$( \
+        curl -s -m 5 -o /dev/null \
+        -w "%{http_code}" -I --insecure "$1"://"${_SOURCE}" || echo $?)
+
+     # Print OK if the server replies with 2xx, 3xx or 4xx HTTP status codes
+     if [[ "${_RET}" =~ ^2.*|^3.*|^4.* ]]
+     then
+        _ok "${_RET}"
+     else
+        _err "${_RET}"
+     fi
+  done
 }
 
 
@@ -207,8 +209,15 @@ function _main() {
   else
      if [[ -n "${1:-}" ]]
      then 
-        printf "\\n\\nChecking sources against %s proxy.\\n\\n" "${1}"
-        _set_proxy "${1}"
+        if [[ "${1}" =~ ^https?:\/\/.+:? ]]
+        then
+           printf "\\nChecking sources against %s proxy.\\n" "${1}"
+           _set_proxy "${1}"
+        else
+           printf "\\nERROR: Invalid proxy URL: %s\\n" "${1}"
+           _print_help
+           exit 1
+        fi
      fi
      _check_http "http"
      _check_http "https"
