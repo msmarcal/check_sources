@@ -90,6 +90,8 @@ usn.ubuntu.com
 launchpad.net
 ppa.launchpcanonical.comad.net
 jujucharms.com
+jaas.ai
+charmhub.io
 streams.canonical.com
 public.apps.ubuntu.com
 snapcraft.io
