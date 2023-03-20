@@ -116,6 +116,11 @@ api.snapcraft.io
 landscape.canonical.com
 livepatch.canonical.com
 dashboard.snapcraft.io
+cdn.snapcraftcontent.com
+cdn.snapcraft.io
+api.snapcraft.io
+dashboard.snapcraft.io
+snapcraftcontent.com
 )
 
 ###############################################################################
