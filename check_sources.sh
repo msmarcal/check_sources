@@ -109,7 +109,7 @@ api.charmhub.io
 entropy.ubuntu.com
 streams.canonical.com
 public.apps.ubuntu.com
-https://login.ubuntu.com
+login.ubuntu.com
 images.maas.io
 api.jujucharms.com
 api.snapcraft.io
