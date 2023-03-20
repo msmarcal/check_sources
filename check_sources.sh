@@ -200,7 +200,7 @@ function _check_http() {
         -w "%{http_code}" -I --insecure "$1"://"${_SOURCE}" || echo $?)
 
      # Print OK if the server replies with 2xx, 3xx or 4xx HTTP status codes
-     if [[ "${_RET}" =~ ^2.*|^3.*|^4.* ]]
+     if [[ "${_RET}" =~ ^2.*|^3.* ]]
      then
         _ok "${_RET}"
      else
