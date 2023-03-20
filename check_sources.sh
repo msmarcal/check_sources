@@ -83,6 +83,10 @@ api.charmhub.io
 streams.canonical.com
 public.apps.ubuntu.com
 images.maas.io
+packages.elastic.co
+artifacts.elastic.co
+packages.elasticsearch.org
+
 )
 
 # shellcheck disable=SC2034
@@ -121,6 +125,9 @@ cdn.snapcraft.io
 api.snapcraft.io
 dashboard.snapcraft.io
 snapcraftcontent.com
+packages.elastic.co
+artifacts.elastic.co
+packages.elasticsearch.org
 )
 
 ###############################################################################
