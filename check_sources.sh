@@ -79,7 +79,6 @@ jaas.ai
 charmhub.io
 api.charmhub.io
 streams.canonical.com
-public.apps.ubuntu.com
 images.maas.io
 packages.elastic.co
 artifacts.elastic.co
