@@ -64,9 +64,7 @@ _RESET='\033[0m'
 _HTTP=(
 ubuntu-cloud.archive.canonical.com
 nova.cloud.archive.ubuntu.com
-cloud.archive.ubuntu.com
 nova.clouds.archive.ubuntu.com
-clouds.archive.ubuntu.com
 cloud-images.ubuntu.com
 keyserver.ubuntu.com
 archive.ubuntu.com
@@ -91,16 +89,9 @@ packages.elasticsearch.org
 
 # shellcheck disable=SC2034
 _HTTPS=(
-ubuntu-cloud.archive.canonical.com
-nova.cloud.archive.ubuntu.com
-cloud.archive.ubuntu.com
-nova.clouds.archive.ubuntu.com
-clouds.archive.ubuntu.com
 cloud-images.ubuntu.com
 keyserver.ubuntu.com
 contracts.canonical.com
-archive.ubuntu.com
-security.ubuntu.com
 usn.ubuntu.com
 launchpad.net
 api.launchpad.net
@@ -120,11 +111,8 @@ api.snapcraft.io
 landscape.canonical.com
 livepatch.canonical.com
 dashboard.snapcraft.io
-cdn.snapcraftcontent.com
-cdn.snapcraft.io
 api.snapcraft.io
 dashboard.snapcraft.io
-snapcraftcontent.com
 packages.elastic.co
 artifacts.elastic.co
 packages.elasticsearch.org
@@ -199,8 +187,8 @@ function _check_http() {
         curl -s -m 5 -o /dev/null \
         -w "%{http_code}" -I --insecure "$1"://"${_SOURCE}" || echo $?)
 
-     # Print OK if the server replies with 2xx, 3xx or 405 HTTP status codes
-     if [[ "${_RET}" =~ ^2.*|^3.*|^405 ]]
+     # Print OK if the server replies with 2xx, 3xx, 400, 403, 404 and 405 HTTP status codes
+     if [[ "${_RET}" =~ ^2.*|^3.*|^400|^403|^404|^405 ]]
      then
         _ok "${_RET}"
      else
