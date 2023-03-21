@@ -187,8 +187,8 @@ function _check_http() {
         curl -s -m 5 -o /dev/null \
         -w "%{http_code}" -I --insecure "$1"://"${_SOURCE}" || echo $?)
 
-     # Print OK if the server replies with 2xx, 3xx, 400, 403, 404 and 405 HTTP status codes
-     if [[ "${_RET}" =~ ^2.*|^3.*|^400|^403|^404|^405 ]]
+     # Print OK if the server replies with 2xx, 3xx, 400, 404 and 405 HTTP status codes
+     if [[ "${_RET}" =~ ^2.*|^3.*|^400|^404|^405 ]]
      then
         _ok "${_RET}"
      else
