@@ -105,7 +105,6 @@ streams.canonical.com
 public.apps.ubuntu.com
 login.ubuntu.com
 images.maas.io
-api.jujucharms.com
 api.snapcraft.io
 landscape.canonical.com
 livepatch.canonical.com
